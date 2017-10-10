@@ -1,0 +1,58 @@
+body {
+	color: #888;
+}
+.header.container-fluid {
+  overflow: hidden;
+  position: fixed; /* Set the navbar to fixed position */
+	padding: 0;
+  top: 0;
+  z-index: 999999;
+  background-color: black;
+  width: 100%;
+}
+.header_corousal {
+  margin-top: 80px;
+}
+.header .header_menu_block {
+	padding: 0 0 0 0;
+}
+
+.header .header_menu_block .menu_item{
+	padding: 29px 59px 0 0;
+}
+
+.header .header_menu_block .logo-wrapper {
+	padding: 10px;
+}
+
+.header .header_menu_block .dropdown-menu {
+	    background-color: #2b2424;
+}
+
+.header .header_menu_block .dropdown-menu > li > a {
+  color: #888;
+}
+
+.header .header_menu_block .dropdown-menu > li > a:hover {
+  background-color: #353030;	    
+}
+
+.btn-group-lg>.btn, .btn-lg {
+  border-radius: 0px;
+}
+
+.header_corousal .g_icon {
+  font-size: 15px;
+  padding-left: 6px;
+}
+
+.header_corousal .carousel-indicators li {
+  display: inline-block;
+  width: 17px;
+  height: 0;
+  margin: 1px;
+}
+
+.header_corousal .carousel-indicators .active {
+  height: 0;
+}
