@@ -1,0 +1,7 @@
+header.php
+	<link rel="stylesheet" href="/yout/assets/css/bootstrap.min.css">
+	All header link
+
+images.php
+	<script type="text/javascript" src="/yout/photoswipe/photoswipe.js"></script>
+	<script type="text/javascript" src="/yout/photoswipe/photoswipe-ui-default.min.js"></script>
