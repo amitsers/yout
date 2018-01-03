@@ -1,7 +1,16 @@
 <?php
-    //get data from url
-	$page_title = "This is title";
-	require_once "header.php";
+    if(!isset($_GET['album_name']) || (isset($_GET['album_name']) && $_GET['album_name']=="")) {
+        header('location: /gallery');
+        exit;
+    }
+    $page_title = "This is title";
+    require_once "header.php";
+
+    $all_images = getAllImagesByAlbumName($_GET['album_name']);
+    if(count($all_images) < 0) {
+        header('location: /gallery');
+        exit;   
+    }	
 ?>
 <style type="text/css">
 	<?php require_once "photoswipe/photoswipe.css"; ?>
@@ -13,60 +22,22 @@
 		</div>
 		<div class="row row_space">
 			<div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-				<div class="col-md-2 col-sm-2 col-xs-6">
-				    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				      <a href="https://farm3.staticflickr.com/2567/5697107145_a4c2eaa0cd_o.jpg" itemprop="contentUrl" data-size="1024x1024">
-				          <img src="https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg" itemprop="thumbnail" alt="Image description" class="img-responsive" />
-				      </a>
-						<figcaption itemprop="caption description">Image caption  1</figcaption>
-				    </figure>
-				</div>
+                <?php
+                    foreach ($all_images as $key => $value) {
+                        ?>
+                            <div class="col-md-2 col-sm-2 col-xs-6">
+                                <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+                                    <a href="<?php echo UPLOAD_URL . 'uploads/' . $value['large_thumb_file_name']; ?>" itemprop="contentUrl" data-size="1024x1024">
+                                        <img src="<?php echo UPLOAD_URL . 'uploads/' . $value['small_thumb_file_name']; ?>" itemprop="thumbnail" alt="Image description" class="img-responsive" />
+                                    </a>
+                                    <figcaption itemprop="caption description"><?php echo $value['title']; ?></figcaption>
+                                </figure>
+                            </div>
 
-				<div class="col-md-2 col-sm-2 col-xs-6">
-				    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				      <a href="https://farm2.staticflickr.com/1043/5186867718_06b2e9e551_b.jpg" itemprop="contentUrl" data-size="964x1024">
-				          <img src="https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg" itemprop="thumbnail" alt="Image description" class="img-responsive" />
-				      </a>
-				      <figcaption itemprop="caption description">Image caption 2</figcaption>
-				    </figure>
-			    </div>
-
-			    <div class="col-md-2 col-sm-2 col-xs-6">
-				    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				      <a href="https://farm7.staticflickr.com/6175/6176698785_7dee72237e_b.jpg" itemprop="contentUrl" data-size="1024x683">
-				          <img src="https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg" itemprop="thumbnail" alt="Image description" class="img-responsive" />
-				      </a>
-				      <figcaption itemprop="caption description">Image caption 3</figcaption>
-				    </figure>
-			    </div>
-
-			    <div class="col-md-2 col-sm-2 col-xs-6">
-				    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				      <a href="https://farm6.staticflickr.com/5023/5578283926_822e5e5791_b.jpg" itemprop="contentUrl" data-size="1024x768">
-				          <img src="https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg" itemprop="thumbnail" alt="Image description" class="img-responsive" />
-				      </a>
-				      <figcaption itemprop="caption description">Image caption 4</figcaption>
-				    </figure>
-			    </div>
-
-			    <div class="col-md-2 col-sm-2 col-xs-6">
-				    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				      <a href="https://farm6.staticflickr.com/5023/5578283926_822e5e5791_b.jpg" itemprop="contentUrl" data-size="1024x768">
-				          <img src="https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg" itemprop="thumbnail" alt="Image description" class="img-responsive" />
-				      </a>
-				      <figcaption itemprop="caption description">Image caption 4</figcaption>
-				    </figure>
-			    </div>
-
-			    <div class="col-md-2 col-sm-2 col-xs-6">
-				    <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-				      <a href="https://farm6.staticflickr.com/5023/5578283926_822e5e5791_b.jpg" itemprop="contentUrl" data-size="1024x768">
-				          <img src="https://farm3.staticflickr.com/2567/5697107145_3c27ff3cd1_m.jpg" itemprop="thumbnail" alt="Image description" class="img-responsive" />
-				      </a>
-				      <figcaption itemprop="caption description">Image caption 4</figcaption>
-				    </figure>
-			    </div>
-			  </div>
+                        <?php
+                    }
+                ?>
+            </div>
 		</div>
 		<div class="row row_space">
 			<br/><br/>

@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+	require_once 'mysqli-conn.php';
+	require_once 'common.php';
+	session_start();
+	$all_rides = getAllRides();
+?>
 <head>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-108495239-1"></script>
@@ -11,7 +17,7 @@
 	  gtag('config', 'UA-108495239-1');
 	</script>
 
-  <title><?php echo $page_title ?></title>
+  <title><?php echo $page_title . PAGE_TITLE_SUFFIX ?></title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <link rel="stylesheet" href="/yout/assets/css/bootstrap.min.css">
@@ -21,9 +27,6 @@
   	?>
   </style>
 </head>
-<?php
-	require_once 'common.php';
-?>
 <body style="background: #000">
 	<nav class="navbar navbar-default navbar-fixed-top header_menu_block">
 	  <div class="container-fluid">
@@ -44,18 +47,24 @@
 	        <li class="active"><a href="/">HOME <span class="sr-only">(current)</span></a></li>
 	        <li><a href="/videos">VIDEOS</a></li>
 	        <li><a href="/gallery">GALLERY</a></li>
-<!-- 	        <li class="dropdown">
+	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RIDES <span class="caret"></span></a>
 	          <ul class="dropdown-menu">
-	            <li><a href="#">Action</a></li>
-	            <li><a href="#">Another action</a></li>
+	          	<?php
+	          		foreach ($all_rides as $key => $value) {
+	          			?>
+	          				<li><a href="#"><?php echo $value['name'] ?></a></li>
+	          			<?php
+	          		}
+	          	?>
+<!-- 	            <li><a href="#">Another action</a></li>
 	            <li><a href="#">Something else here</a></li>
 	            <li role="separator" class="divider"></li>
 	            <li><a href="#">Separated link</a></li>
 	            <li role="separator" class="divider"></li>
-	            <li><a href="#">One more separated link</a></li>
+	            <li><a href="#">One more separated link</a></li> -->
 	          </ul>
-	        </li> -->
+	        </li>
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->

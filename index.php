@@ -1,7 +1,7 @@
 <?php
-	$page_title = "HOME | TripFootage";
-	$page_name = "index";
+	$page_title = "HOME";
 	require_once "header.php";
+	$corousal_data = getCorousal();
 ?>
 	<div class="header_corousal">
 	   <div id="carousel-example" class="carousel slide" data-ride="carousel">
@@ -11,27 +11,40 @@
 	         <li data-target="#carousel-example" data-slide-to="2"></li>
 	      </ol>
 	      <div class="carousel-inner">
-	         <div class="item active">
-	            <a href="#"><img src="http://placekitten.com/1600/600" /></a>
-	            <div class="carousel-caption">
-	               <h3>Other dog training related web sites and books offer generic </h3>
-	               <p id="watch_now_ico"><a href="" class="btn btn-danger btn-lg">Watch Now <span class="g_icon glyphicon glyphicon-facetime-video"></span></a></p>
-	            </div>
-	         </div>
-	         <div class="item">
-	            <a href="#"><img src="http://placekitten.com/1600/600" /></a>
-	            <div class="carousel-caption">
-	               <h3>How to obedience train your Beagle and end behavioral problems like Aggression, Jumping, Pulling on the Leash</h3>
-	               <p>Just Kitten Around</p>
-	            </div>
-	         </div>
-	         <div class="item">
-	            <a href="#"><img src="http://placekitten.com/1600/600" /></a>
-	            <div class="carousel-caption">
-	               <h3>Priority access to the Free online seminars</h3>
-	               <p>Just Kitten Around</p>
-	            </div>
-	         </div>
+	      	<?php
+	      		$count = 0;
+	      		foreach ($corousal_data as $key => $value) {
+	      			if($count==0) {
+	      				$is_active = "active";	
+	      			} else {
+	      				$is_active = "";
+	      			}
+	      			$count++;
+	      			?>
+	      				<div class="item <?php echo $is_active; ?>">
+				            <a href="#"><img src="<?php echo UPLOAD_URL . 'uploads/' .  $value['thumb']; ?>" /></a>
+				            <div class="carousel-caption">
+				               <h3><?php echo $value['title']; ?></h3>
+				               <?php
+				               	if($value['type']=="VIDEO") {
+				               		?>
+				               			<p id="watch_now_ico">
+						               		<a href="<?php echo $value['URL']; ?>" class="btn btn-danger btn-lg">Watch Now <span class="g_icon glyphicon glyphicon-facetime-video"></span></a>
+						               	</p>
+				               		<?php
+				               	} else {
+				               		?>
+				               			<a href="">View Image Gallery</a>
+				               		<?php
+				               	}
+				               ?>
+				               
+				            </div>
+				        </div>
+	      			<?php
+	      		}
+
+	      	?>
 	      </div>
 	      <a class="left carousel-control" href="#carousel-example" data-slide="prev">
 	      <span class="glyphicon glyphicon-chevron-left"></span>
@@ -40,81 +53,32 @@
 	      <span class="glyphicon glyphicon-chevron-right"></span>
 	      </a>
 	   </div>
-	</div>
+	</div>	
 	<div class="container-fluid home_content">
 		<div class="row row_heading_space">
 			<h4>LATEST VIDEOS</h4>
 		</div>
 
-		<div class="row row_space">
-			<div class="col-md-6 col-sm-6 latest_img_wrapper mouse_hover_share">
-				<img src="img/abc.jpg" class="latest_img">
-				<div class="latest_video_info">
-					<?php socialMediaShare('http://google.com', 'This is message'); ?>
-				</div>
-				<div class="latest_video_title">This is latest video title</div>
-			</div>
-			<div class="col-md-6 col-sm-6 latest_img_wrapper">
-				<img src="img/abc2.jpg" class="latest_img">
-				<div class="latest_video_info">
-					<?php socialMediaShare('http://google.com', 'This is message'); ?>
-				</div>
-				<div class="latest_video_title">This is latest video title</div>
-			</div>
-		</div>
+		<div class="latest_video_ajax_replace"></div>
 
-		<div class="row row_heading_space">
-			<h4>ALL VIDEOS</h4>
-		</div>
-		<div class="row row_space">
-			<div class="col-md-4 col-sm-4">
-				<img src="img/abc.jpg" class="latest_img">
-				<div class="latest_video_info">
-					<?php socialMediaShare('http://google.com', 'This is message'); ?>
-				</div>
-				<div class="latest_video_title">This is latest video title</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<img src="img/abc2.jpg" class="latest_img">
-				<div class="latest_video_info">
-					<?php socialMediaShare('http://google.com', 'This is message'); ?>
-				</div>
-				<div class="latest_video_title">This is latest video title</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<img src="img/abc.jpg" class="latest_img">
-				<div class="latest_video_info">
-					<?php socialMediaShare('http://google.com', 'This is message'); ?>
-				</div>
-				<div class="latest_video_title" title="Other dog training related web sites and books offer generic information for dogs. However, ours is the ONLY web site that offers information that is specific to"><?php echo substr("Other dog training related web sites and books offer generic information for dogs. However, ours is the ONLY web site that offers information that is specific to", 0, 65) ?></div>
-			</div>
-		</div>
-		<div class="row row_space">
-			<div class="col-md-4 col-sm-4">
-				<img src="img/abc.jpg" class="latest_img">
-				<div class="latest_video_info">
-					<?php socialMediaShare('http://google.com', 'This is message'); ?>
-				</div>
-				<div class="latest_video_title">This is latest video title</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<img src="img/abc2.jpg" class="latest_img">
-				<div class="latest_video_info">
-					<?php socialMediaShare('http://google.com', 'This is message'); ?>
-				</div>
-				<div class="latest_video_title">This is latest video title</div>
-			</div>
-			<div class="col-md-4 col-sm-4">
-				<img src="img/abc.jpg" class="latest_img">
-				<div class="latest_video_info">
-					<?php socialMediaShare('http://google.com', 'This is message'); ?>
-				</div>
-				<div class="latest_video_title">This is latest video title</div>
-			</div>
-		</div>
-	</div>
-
-
+		<div class="row row_heading_space"></div>
+		<div class="all_video_ajax_replace"></div>
+	</div>	
 	<br/>
 <?php
 	require_once "footer.php";
+?>
+<script type="text/javascript">
+	$.get("fetch-all/?type=latest", function(data, status) {
+        $(".latest_video_ajax_replace").html(data);
+    });
+    $.get("fetch-all/?type=home_all", function(data, status) {
+        $(".all_video_ajax_replace").html(data);
+    });
+
+// $(window).scroll(function() {
+//     if($(window).scrollTop() >= $(document).height() - $(window).height()) {
+//           console.log('loadnor');
+//     }
+// });
+</script>

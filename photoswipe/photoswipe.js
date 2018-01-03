@@ -2894,7 +2894,7 @@ var _getItemAt,
 		}
 
 		img.style.width = w + 'px';
-		img.style.height = h + 'px';
+		//img.style.height = h + 'px';
 	},
 	_appendImagesPool = function() {
 

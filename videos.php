@@ -1,31 +1,36 @@
 <?php
 	$page_title = "All Vidoes | TripFootage";
 	require_once "header.php";
+	$all_videos = getLatestVideos(8);
+	foreach ($all_videos as $key => $value) {
+
+	}
 ?>
-	<div class="container-fluid home_content">
+	<div class="container-fluid home_content videos_content">
 		<div class="row row_heading_space">
 			<h4>ALL VIDEOS</h4>
 		</div>
 		<div class="row row_space">
-			<div class="col-md-3 col-sm-3">
-				<a href="video/video-url">
-					<img src="img/abc.jpg" class="latest_img">
-					<h5>mistakes that most Beagle owners make when they are tryi</h5>
-				</a>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<img src="img/abc2.jpg" class="latest_img">
-				<h5>the Free online seminars conducte</h5>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<img src="img/abc.jpg" class="latest_img">
-				<h5 title="Other dog training related web sites and books offer generic information for dogs. However, ours is the ONLY web site that offers information that is specific to"><?php echo substr("Other dog training related web sites and books offer generic information for dogs. However, ours is the ONLY web site that offers information that is specific to", 0, 65) ?></h5>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<img src="img/abc2.jpg" class="latest_img">
-				<h5>the Free online seminars conducte</h5>
+		<?php
+			foreach ($all_videos as $key => $value) {
+			?>
+				<div class="col-md-3 col-sm-3">
+					<a target="_blank" href="<?php echo $value['url']; ?>">
+						<img src="img/uploads/<?php echo $value['small_thumb']; ?>" class="latest_img">
+						<h5><?php echo $value['title']; ?></h5>
+					</a>
+				</div>
+			<?php
+			}
+			?>
+		</div>
+		<div class="latest_video_ajax_replace"></div>
+		<div class="row row_space">
+			<div class="col-md-12 text-center">
+				<button onClick="loadMoreVideos()" class="btn btn-success">Load More <i class="fa fa-plus-square" aria-hidden="true"></i></button>
 			</div>
 		</div>
+		
 		<div class="row row_space">
 			<div class="col-md-3 col-sm-3">
 				<img src="img/abc.jpg" class="latest_img">
@@ -43,28 +48,18 @@
 				<img src="img/abc2.jpg" class="latest_img">
 				<h5>the Free online seminars conducte</h5>
 			</div>
-		</div>
-		<div class="row row_space">
-			<div class="col-md-3 col-sm-3">
-				<img src="img/abc.jpg" class="latest_img">
-				<h5>mistakes that most Beagle owners make when they are tryi</h5>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<img src="img/abc2.jpg" class="latest_img">
-				<h5>the Free online seminars conducte</h5>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<img src="img/abc.jpg" class="latest_img">
-				<h5 title="Other dog training related web sites and books offer generic information for dogs. However, ours is the ONLY web site that offers information that is specific to"><?php echo substr("Other dog training related web sites and books offer generic information for dogs. However, ours is the ONLY web site that offers information that is specific to", 0, 65) ?></h5>
-			</div>
-			<div class="col-md-3 col-sm-3">
-				<img src="img/abc2.jpg" class="latest_img">
-				<h5>the Free online seminars conducte</h5>
-			</div>
-		</div>
+		</div>        
 	</div>
 
 
 	<br/>
 <?php
 	require_once "footer.php";
+?>
+<script type="text/javascript">
+	function loadMoreVideos() {
+		$.get("fetch-all/?type=load_more_videos", function(data, status) {
+	        $(".latest_video_ajax_replace").html(data);
+	    });
+	}
+</script>

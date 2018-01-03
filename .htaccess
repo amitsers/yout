@@ -18,5 +18,5 @@ Options All -Indexes
 
 RewriteEngine On
 RewriteRule ^([^/.]+)/?$ $1.php
-RewriteRule ^images/([a-zA-Z0-9_-]+)$ images.php?ride_name=$1
-RewriteRule ^video/([a-zA-Z0-9_-]+)$ video.php?url=$1
+RewriteRule ^images/([a-zA-Z0-9_-]+)$ images.php?album_name=$1
+RewriteRule ^videos/([a-zA-Z0-9_-]+)$ video.php?url=$1

@@ -86,6 +86,7 @@ body {
   opacity: 0.3;
 }
 
+.home_content .latest_img + .latest_video_info:hover,
 .home_content .latest_img:hover + .latest_video_info,
 .home_content .latest_img:hover {
   opacity: 0.7;
@@ -200,4 +201,58 @@ hr {
   background-color: #131313;
   height: 100px; 
   padding: 15px;
+}
+
+.instagram_main_block {
+    border: 1px solid #b9a2a2;
+    padding: 0 8px 8px 8px;
+}
+.instagram_main_block .insta_post {
+  width: 100%;
+}
+
+.instagram_main_block .insta_post_wrapper {
+  overflow: hidden;
+  height: 173px;
+}
+
+.instagram_main_block .insta_profile_pic {
+    width: 69px;
+    border-radius: 50%;
+    padding: 8px;
+}
+
+.instagram_main_block .insta_user_name {
+  margin-top: 23px;
+  font-size: 17px;
+  color: #d4c4c4;
+}
+
+.instagram_main_block .insta_top_corner_logo {
+  font-size: 40px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.instagram_main_block .insta_like_comments, .instagram_main_block .insta_tag_users {
+  padding-top: 5px;
+  text-align: left;
+}
+
+.instagram_main_block .insta_ico_color {
+  color: #bbabab;
+}
+
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none;
+}
+
+.instagram_main_block .insta_link a:hover {
+  color: aliceblue;
+}
+
+.videos_content a h5,
+.instagram_main_block .insta_link a,
+.footer_main_block .social_media_text h4 {
+  color: #bbabab;
 }
