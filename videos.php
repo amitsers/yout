@@ -17,21 +17,21 @@
 				<div class="col-md-3 col-sm-3">
 					<a target="_blank" href="<?php echo $value['url']; ?>">
 						<img src="img/uploads/<?php echo $value['small_thumb']; ?>" class="latest_img">
-						<h5><?php echo $value['title']; ?></h5>
+						<h5><?php echo substr($value['title'], 0, 38); ?></h5>
 					</a>
 				</div>
 			<?php
 			}
 			?>
 		</div>
-		<div class="latest_video_ajax_replace"></div>
+		<div id="latest_video_ajax_replace"></div>
 		<div class="row row_space">
 			<div class="col-md-12 text-center">
-				<button onClick="loadMoreVideos()" class="btn btn-success">Load More <i class="fa fa-plus-square" aria-hidden="true"></i></button>
+				<button onClick="loadMoreVideos()" id="load-more-btn" class="btn btn-success">Load More Old Videos <i class="fa fa-plus" aria-hidden="true"></i></button>
 			</div>
 		</div>
 		
-		<div class="row row_space">
+<!-- 		<div class="row row_space">
 			<div class="col-md-3 col-sm-3">
 				<img src="img/abc.jpg" class="latest_img">
 				<h5>mistakes that most Beagle owners make when they are tryi</h5>
@@ -48,7 +48,7 @@
 				<img src="img/abc2.jpg" class="latest_img">
 				<h5>the Free online seminars conducte</h5>
 			</div>
-		</div>        
+		</div>        --> 
 	</div>
 
 
@@ -59,7 +59,11 @@
 <script type="text/javascript">
 	function loadMoreVideos() {
 		$.get("fetch-all/?type=load_more_videos", function(data, status) {
-	        $(".latest_video_ajax_replace").html(data);
+			if(data == "NO_DATA") {
+				$('#load-more-btn').hide();
+			} else {
+				document.getElementById('latest_video_ajax_replace').insertAdjacentHTML('beforeend', data);	
+			}	        
 	    });
 	}
 </script>

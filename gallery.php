@@ -1,7 +1,7 @@
 <?php
 	$page_title = "Photo Gallery | TripFootage";
 	require_once "header.php";
-	$gallery_data = getAllAlbums();
+	$gallery_data = getLatestAlbums(8);
 ?>
 	<div class="container-fluid home_content">
 		<div class="row row_heading_space">
@@ -21,9 +21,25 @@
 			}
 		?>
 		</div>
+		<div id="latest_video_ajax_replace"></div>
+		<div class="row row_space">
+			<div class="col-md-12 text-center">
+				<button onClick="loadMoreAlbums()" id="load-more-btn" class="btn btn-success">Load More Old Videos <i class="fa fa-plus" aria-hidden="true"></i></button>
+			</div>
+		</div>
 	</div>
-
-
 	<br/>
 <?php
 	require_once "footer.php";
+?>
+<script type="text/javascript">
+	function loadMoreAlbums() {
+		$.get("fetch-all/?type=load_more_albums", function(data, status) {
+			if(data == "NO_DATA") {
+				$('#load-more-btn').hide();
+			} else {
+				document.getElementById('latest_video_ajax_replace').insertAdjacentHTML('beforeend', data);	
+			}	        
+	    });
+	}
+</script>

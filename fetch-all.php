@@ -40,7 +40,7 @@
 			<?php
 				while ($row = $videos_query->fetch_array()) {
 					$data[] = $row;
-					?>
+					?>s
 						<div class="col-md-4 col-sm-4">
 							<a target="_blank" href="<?php echo $row['url']; ?>"><img src="<?php echo UPLOAD_URL . 'uploads/' . $row['small_thumb']; ?>" class="latest_img"></a>
 							<div class="latest_video_info">
@@ -98,24 +98,62 @@
 		</div>
 		<?php
 	} elseif(isset($_GET['type']) && ($_GET['type']=="load_more_videos")) {
-		if(isset($_SESSION['latest_last_video_id'])) {
+		if(isset($_SESSION['videos']['last_id'])) {
 			$last_id = $_SESSION['videos']['last_id'];
+		} else {
+			$last_id = 150000;
 		}
 		$videos_query = $conn->query("SELECT v.id video_id , v.*, r.* FROM videos v, rides r WHERE r.id=v.ride_id AND v.id<$last_id ORDER BY v.id DESC LIMIT 8");
-		?>
-		<div class="row row_space">
-			<?php
+		if($videos_query->num_rows > 0) {
+			?>
+			<div class="row row_space">
+				<?php
 				while ($row = $videos_query->fetch_array()) {
+					$_SESSION['videos']['last_id'] = $row['video_id'];
 					?>
 						<div class="col-md-3 col-sm-3">
 							<a target="_blank" href="<?php echo $row['url']; ?>">
 								<img src="img/uploads/<?php echo $row['small_thumb']; ?>" class="latest_img">
-								<h5><?php echo $row['title']; ?></h5>
+								<h5><?php echo substr($row['title'], 0, 38); ?></h5>
 							</a>
 						</div>
 					<?php
 				}
+				?>
+			</div>
+			<?php
+		} else {
+			echo 'NO_DATA';
+		}
+	} elseif(isset($_GET['type']) && ($_GET['type']=="load_more_albums")) {
+		if(isset($_SESSION['album']['last_id'])) {
+			$last_id = $_SESSION['album']['last_id'];
+		} else {
+			$last_id = 150000;
+		}
+		// $videos_query = $conn->query("SELECT v.id video_id , v.*, r.* FROM videos v, rides r WHERE r.id=v.ride_id AND v.id<$last_id ORDER BY v.id DESC LIMIT 8");
+
+		// "SELECT v.id video_id, r.*, v.* FROM rides r, videos v WHERE r.id=v.ride_id ORDER BY v.id DESC LIMIT $count"
+		// "SELECT * FROM gallery g, albums a WHERE a.id=g.album_id AND a.id<$last_id GROUP BY a.id ORDER BY a.id DESC LIMIT 8";
+		if($videos_query->num_rows > 0) {
 			?>
-		</div>
-		<?php
+			<div class="row row_space">
+				<?php
+				while ($row = $videos_query->fetch_array()) {
+					$_SESSION['album']['last_id'] = $row['album_id'];
+					?>
+						<div class="col-md-3 col-sm-3">
+							<a target="_blank" href="<?php echo $row['url']; ?>">
+								<img src="img/uploads/<?php echo $row['small_thumb']; ?>" class="latest_img">
+								<h5><?php echo substr($row['title'], 0, 38); ?></h5>
+							</a>
+						</div>
+					<?php
+				}
+				?>
+			</div>
+			<?php
+		} else {
+			echo 'NO_DATA';
+		}
 	}

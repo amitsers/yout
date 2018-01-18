@@ -90,6 +90,20 @@
 		return $data;
 	}
 
+	function getLatestAlbums($count) {
+		$conn = new DBConn();
+		$count = $conn->mysqli_real_escape_string($count);
+		// echo "SELECT * FROM gallery g, albums a WHERE a.id=g.album_id GROUP BY a.id ORDER BY a.id DESC LIMIT $count"; exit;
+		$gallery_query = $conn->query("SELECT * FROM gallery g, albums a WHERE a.id=g.album_id GROUP BY a.id ORDER BY a.id DESC LIMIT $count");
+		if($gallery_query->num_rows > 0 ) {
+			while ($row = $gallery_query->fetch_assoc()) {
+				$data[] = $row;
+				$_SESSION['album']['last_id'] = $data[$count-1]['album_id'];
+			}	
+			return $data;
+		}
+	}
+
 	function getAllImagesByAlbumName($album_name) {
 		$conn = new DBConn();
 		$album_name = $conn->mysqli_real_escape_string($album_name);
@@ -111,26 +125,8 @@
 			while ($row = $all_latest_videos_query->fetch_assoc()) {
 				$data[] = $row;
 			}
+			$_SESSION['videos']['last_id'] = $data[$count-1]['video_id'];
 			return $data;
 		}
 		return array();
 	}
-
-
-	
-	// function getLatestVideos($count) {
-	// 	$conn = new DBConn();
-	// 	$count = $conn->mysqli_real_escape_string($count);
-	// 	$all_latest_videos_query = $conn->query("SELECT v.id video_id, r.*, v.* FROM rides r, videos v WHERE r.id=v.ride_id ORDER BY v.id DESC LIMIT $count");
-	// 	if($all_latest_videos_query->num_rows > 0) {
-	// 		while ($row = $all_latest_videos_query->fetch_assoc()) {
-	// 			$data[] = $row;
-	// 		}
-	// 		// $_SESSION['videos']['last_id'] = $data[$count-1]['video_id'];
-	// 		return $data;
-	// 	}		
-	// 	return array();
-	// }
-
-	// // echo "<pre>";
-	// // print_r(getLatestVideos(8));
